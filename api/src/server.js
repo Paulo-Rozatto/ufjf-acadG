@@ -10,11 +10,12 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
-const sequelize = require('./connection.js');
+const db = require('./models');
 
-(async function testConnecion() {
+// testa conexao com o banco e roda aplicacao na porta selecionada
+(async function () {
     try {
-        await sequelize.authenticate();
+        await db.sequelize.authenticate();
         console.log('Connection has been established successfully.');
 
         app.listen(port, () => {
