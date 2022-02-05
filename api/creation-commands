@@ -6,3 +6,4 @@ npx sequelize-cli seed:generate --name user
 
 npx sequelize-cli model:generate --name
 
+npx sequelize-cli model:generate --name Employee --attributes salary:decimal,contract_status:string
