@@ -7,3 +7,9 @@ npx sequelize-cli seed:generate --name user
 npx sequelize-cli model:generate --name
 
 npx sequelize-cli model:generate --name Employee --attributes salary:decimal,contract_status:string
+
+npx sequelize-cli model:generate --name Instructor --attributes cref:string
+
+npx sequelize-cli model:generate --name Workout --attributes start_date:date,expire_date:date,member_id:integer,instructor_id:integer
+
+npx sequelize-cli model:generate --name Instructor --attributes cref:string
