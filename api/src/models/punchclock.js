@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'PunchClock',
-    tableName: 'PunchClock'
+    tableName: 'PunchClocks'
   });
   return PunchClock;
 };
