@@ -282,5 +282,28 @@ routes.get('/member/:id', async (req, res) => {
     }
 })
 
+routes.put('/member', async (req, res) => {
+    let { id, userData, ...memberData } = req.body;
+
+    try {
+        let user = await models.Member.findOne({
+            attributes: ['user_id'],
+            where: { id }
+        })
+
+        await models.User.update(userData, {
+            where: { id: user.user_id }
+        })
+        await models.Member.update(memberData, { where: { id: id } })
+
+        return res.status(200).json({
+            success: true
+        })
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "error" });
+    }
+})
 
 module.exports = routes;
