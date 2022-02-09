@@ -153,4 +153,15 @@ routes.get('/employee/:id', async (req, res) => {
     }
 })
 
+routes.get('/punchClocks', async (req, res) => {
+    try {
+        const punchClocks = await models.PunchClock.findAll();
+
+        return res.status(200).json(punchClocks);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "error" });
+    }
+})
+
 module.exports = routes;
