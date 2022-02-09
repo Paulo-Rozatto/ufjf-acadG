@@ -251,5 +251,36 @@ routes.post('/member', async (req, res) => {
 
 })
 
+routes.get('/member/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        let member = (await models.Member.findAll({
+            where: { id }
+        }))[0]
+
+        if (!member) {
+            return res.status(404).json({
+                success: false,
+                msg: 'Not found'
+            })
+        }
+
+        let user = (await models.User.findAll({
+            attributes: { exclude: ['password', 'id'] },
+            where: { id: member.user_id }
+        }))[0]
+
+        return res.status(200).json({
+            success: true,
+            employee: { ...member.dataValues, ...user.dataValues },
+        })
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "error" });
+    }
+})
+
 
 module.exports = routes;
