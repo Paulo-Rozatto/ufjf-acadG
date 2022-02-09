@@ -4,6 +4,8 @@ npx sequelize-cli model:generate --name Member --attributes membership_status:st
 
 npx sequelize-cli seed:generate --name user
 
+npx sequelize-cli db:seed --seed 20220209130943-member.js
+
 npx sequelize-cli model:generate --name
 
 npx sequelize-cli model:generate --name Employee --attributes salary:decimal,contract_status:string
