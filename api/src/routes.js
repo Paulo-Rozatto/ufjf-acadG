@@ -153,6 +153,30 @@ routes.get('/employee/:id', async (req, res) => {
     }
 })
 
+routes.put('/employee', async (req, res) => {
+    let { id, userData, ...employeeData } = req.body;
+
+    try {
+        let user = await models.Employee.findOne({
+            attributes: ['user_id'],
+            where: { id }
+        })
+
+        await models.User.update(userData, {
+            where: { id: user.user_id }
+        })
+        await models.Employee.update(employeeData, { where: { id: id } })
+
+        return res.status(200).json({
+            success: true
+        })
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "error" });
+    }
+})
+
 routes.get('/punchClocks', async (req, res) => {
     try {
         const punchClocks = await models.PunchClock.findAll();
