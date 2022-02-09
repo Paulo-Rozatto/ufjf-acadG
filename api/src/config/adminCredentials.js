@@ -1,4 +1,4 @@
 module.exports = {
     username: "admin",
-    password: "password"
+    password: "123"
 }
