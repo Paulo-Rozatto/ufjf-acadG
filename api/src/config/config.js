@@ -8,7 +8,7 @@ module.exports = {
     "host": "localhost",
     "dialect": "postgres",
     "define": {
-      timestamps: false,
+      timestamps: true,
       // underscored: true,
     },
   },

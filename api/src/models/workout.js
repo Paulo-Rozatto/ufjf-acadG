@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
       this.belongsTo(models.Instructor, {
         foreignKey: {
-          name: 'instuctor_id',
+          name: 'instructor_id',
           allowNull: false
         },
       });
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Workout',
-    tableName: 'Workout'
+    tableName: 'Workouts'
   });
   return Workout;
 };

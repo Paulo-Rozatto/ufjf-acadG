@@ -194,7 +194,7 @@ routes.post('/punchClock', async (req, res) => {
 
         let punchClock = await models.PunchClock.create({ date, employee_id })
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             punchClock
         })
@@ -300,6 +300,27 @@ routes.put('/member', async (req, res) => {
             success: true
         })
 
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "error" });
+    }
+})
+
+routes.post('/workout', async (req, res) => {
+    let workoutData = req.body;
+
+    console.log(workoutData)
+
+    try {
+        let workout = await models.Workout.create({
+            ...workoutData,
+        })
+
+        return res.status(200).json({
+            success: true,
+            workout
+        })
+        
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: "error" });
