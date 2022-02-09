@@ -217,7 +217,7 @@ routes.post('/member', async (req, res) => {
             }
         })
 
-        if(!employee) {
+        if (!employee) {
             return res.status(401).json({
                 success: false,
                 msg: 'Invalid credentials'
@@ -318,7 +318,7 @@ routes.post('/workout', async (req, res) => {
             success: true,
             workout
         })
-        
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: "error" });
@@ -335,7 +335,34 @@ routes.post('/exercise', async (req, res) => {
             success: true,
             exercise
         })
-        
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "error" });
+    }
+})
+
+routes.get('/workout/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        let workout = await models.Workout.findOne({ where: { id } })
+
+        if (!workout) {
+            return res.status(404).json({
+                success: false,
+                msg: 'Not found'
+            })
+        }
+
+        let exercise = await models.Exercise.findAll({ where: { workout_id: id } })
+
+        return res.status(200).json({
+            success: true,
+            workout,
+            exercise
+        })
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: "error" });
