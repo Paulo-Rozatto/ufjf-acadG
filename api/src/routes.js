@@ -164,4 +164,21 @@ routes.get('/punchClocks', async (req, res) => {
     }
 })
 
+routes.post('/punchClock', async (req, res) => {
+    try {
+        let { date, employee_id } = req.body;
+
+        let punchClock = await models.PunchClock.create({ date, employee_id })
+
+        res.status(200).json({
+            success: true,
+            punchClock
+        })
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "error" });
+    }
+})
+
 module.exports = routes;
