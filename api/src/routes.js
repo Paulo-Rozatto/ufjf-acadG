@@ -205,4 +205,51 @@ routes.post('/punchClock', async (req, res) => {
     }
 })
 
+routes.post('/member', async (req, res) => {
+    const { authentication, userData, memberData } = req.body;
+
+    try {
+        let employee = await models.User.findOne({
+            where: {
+                login: authentication.login,
+                password: authentication.password,
+                type: 2
+            }
+        })
+
+        if(!employee) {
+            return res.status(401).json({
+                success: false,
+                msg: 'Invalid credentials'
+            })
+        }
+
+        let user = await createUser(userData);
+
+        if (user.id == -1) {
+            console.error(user.error)
+            res.status(500).json({ error: "error" });
+        }
+
+        let member = await models.Member.create({
+            ...memberData,
+            user_id: user.id,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        })
+
+        return res.status(200).json({
+            success: true,
+            msg: 'Created member',
+            member
+        })
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "error" });
+    }
+
+})
+
+
 module.exports = routes;
