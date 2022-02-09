@@ -309,8 +309,6 @@ routes.put('/member', async (req, res) => {
 routes.post('/workout', async (req, res) => {
     let workoutData = req.body;
 
-    console.log(workoutData)
-
     try {
         let workout = await models.Workout.create({
             ...workoutData,
@@ -319,6 +317,23 @@ routes.post('/workout', async (req, res) => {
         return res.status(200).json({
             success: true,
             workout
+        })
+        
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "error" });
+    }
+})
+
+routes.post('/exercise', async (req, res) => {
+    let exerciseData = req.body;
+
+    try {
+        let exercise = await models.Exercise.bulkCreate(exerciseData)
+
+        return res.status(200).json({
+            success: true,
+            exercise
         })
         
     } catch (error) {
