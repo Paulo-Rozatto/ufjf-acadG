@@ -10,15 +10,11 @@ export default class Login extends React.Component {
         super(props);
         this.state = {
             navigate: false,
-            path: ''
+            path: '',
+            user: null
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    async componentDidMount() {
-        let res = await axios.get(`http://localhost:3333/users`)
-        console.log(res);
     }
 
     async handleSubmit() {
@@ -27,9 +23,10 @@ export default class Login extends React.Component {
 
         try {
             let res = await axios.post('http://localhost:3333/login', { login, password })
-            console.log(res.data)
+
             this.setState({
                 path: res.data.user.type === 1 ? 'member' : 'employee',
+                user: res.data.user,
                 navigate: true
             })
         }
@@ -48,7 +45,7 @@ export default class Login extends React.Component {
                 <br /><br />
                 <Button onClick={this.handleSubmit} variant="contained">Enviar</Button>
                 {
-                    this.state.navigate ? <Navigate to={this.state.path}></Navigate> : ''
+                    this.state.navigate && <Navigate to={this.state.path} state={this.state.user}></Navigate>
                 }
             </div>
         );

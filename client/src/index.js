@@ -11,6 +11,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
 import Login from './views/Login/Login.js'
+import Member from './views/Member/Member.js'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,7 +19,7 @@ ReactDOM.render(
       {/* <App /> */}
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="member" element={<h2>Member</h2>} />
+        <Route path="member" element={<Member />} />
         <Route path="employee" element={<h2>Employee</h2>} />
       </Routes>
     </BrowserRouter>

@@ -346,7 +346,7 @@ routes.get('/workout/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        let workout = await models.Workout.findOne({ where: { id } })
+        let workout = await models.Workout.findOne({ where: { member_id: id } })
 
         if (!workout) {
             return res.status(404).json({
@@ -355,7 +355,7 @@ routes.get('/workout/:id', async (req, res) => {
             })
         }
 
-        let exercise = await models.Exercise.findAll({ where: { workout_id: id } })
+        let exercise = await models.Exercise.findAll({ where: { workout_id: workout.id } })
 
         return res.status(200).json({
             success: true,
