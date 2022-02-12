@@ -5,13 +5,14 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import './index.css'
 
 // import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-
 import Login from './views/Login/Login.js'
 import Member from './views/Member/Member.js'
+import Employee from './views/Employee/Employee.js'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,7 +21,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="member" element={<Member />} />
-        <Route path="employee" element={<h2>Employee</h2>} />
+        <Route path="employee" element={<Employee />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
