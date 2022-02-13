@@ -159,7 +159,7 @@ routes.get('/employee/:id', async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            employee: { ...employee.dataValues, ...user.dataValues },
+            employee: { ...user.dataValues, ...employee.dataValues },
         })
 
     } catch (error) {

@@ -10,12 +10,7 @@ export default class EmployeeQuery extends React.Component {
             admin: { ...window.history.state.usr },
             member: null,
             employee: null,
-            workout: null,
-            exercises: [],
-            isCreating: false,
         }
-
-        console.log(this.state);
 
         this.queryEmployee = this.queryEmployee.bind(this)
         this.updateMember = this.updateMember.bind(this);
@@ -31,7 +26,6 @@ export default class EmployeeQuery extends React.Component {
 
                 this.setState({
                     employee: res.data.employee,
-                    isCreating: false
                 })
 
                 document.getElementById('employee-name').value = res.data.employee.name
@@ -39,14 +33,13 @@ export default class EmployeeQuery extends React.Component {
                 document.getElementById('employee-email').value = res.data.employee.email
                 document.getElementById('employee-salary').value = res.data.employee.salary
                 document.getElementById('employee-status').value = res.data.employee.contract_status
-                document.getElementById('employee-type').value = res.data.employee.type === 1 ? 'Funcionario(a)' : 'Professor(a)'
+                document.getElementById('employee-type').value = res.data.employee.type === 1 ? 'Regular' : 'Professor(a)'
 
             } catch (error) {
                 console.error(error)
 
                 this.setState({
                     employee: null,
-                    isCreating: false
                 })
             }
         }
@@ -69,6 +62,7 @@ export default class EmployeeQuery extends React.Component {
             await axios.put(`http://localhost:3333/employee`, {
                 id: this.state.employee.id,
                 salary,
+                type: 1,
                 contract_status,
                 userData
             })

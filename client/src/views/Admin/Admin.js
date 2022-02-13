@@ -1,11 +1,12 @@
 import React from "react";
 // import axios from "axios";
 
-import { Alert, Box, Button, Tab, Tabs } from "@mui/material";
+import { Box, Tab, Tabs } from "@mui/material";
 
 import Base from "../../components/Base";
 import TabPanel from "../../components/TabPanel";
 import EmployeeQuery from "./components/EmployeeQuery";
+import EmployeeForm from "./components/EmployeeForm";
 
 
 export default class Admin extends React.Component {
@@ -14,7 +15,7 @@ export default class Admin extends React.Component {
 
         this.state = {
             value: 0,
-            employee: { ...window.history.state.usr },
+            admin: { ...window.history.state.usr },
             member: null,
             workout: null,
             exercises: [],
@@ -44,12 +45,12 @@ export default class Admin extends React.Component {
                         </Tabs>
                     </Box>
                     <TabPanel index={0} value={this.state.value}>
-                        {/* <MemberQuery></MemberQuery> */}
                         <EmployeeQuery></EmployeeQuery>
                     </TabPanel>
 
                     <TabPanel index={1} value={this.state.value}>
                         {/* <MemberForm title="Cadastro de Aluno" login={this.state.employee.login}></MemberForm> */}
+                        <EmployeeForm login={this.state.admin.login}></EmployeeForm>
                     </TabPanel>
 
                     <TabPanel index={2} value={this.state.value}>
