@@ -5,6 +5,7 @@ import { Box, Button, Grid, Paper, Tab, Table, TableBody, TableCell, TableContai
 
 import Base from "../../components/Base";
 import TabPanel from "../../components/TabPanel";
+import MemberForm from "../../components/MemberForm";
 
 
 export default class Employee extends React.Component {
@@ -292,6 +293,10 @@ export default class Employee extends React.Component {
                                 }
                             </div>
                         )}
+                    </TabPanel>
+
+                    <TabPanel index={1} value={this.state.value}>
+                        <MemberForm title="Cadastro de Aluno" login={this.state.employee.login}></MemberForm>
                     </TabPanel>
 
                     <TabPanel index={2} value={this.state.value}>
