@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-import { Box, Button, Grid, Paper, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, TextField } from "@mui/material";
+import { Alert, Box, Button, Grid, Paper, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, TextField } from "@mui/material";
 
 import Base from "../../components/Base";
 import TabPanel from "../../components/TabPanel";
@@ -18,7 +18,8 @@ export default class Employee extends React.Component {
             member: null,
             workout: null,
             exercises: [],
-            isCreating: false
+            isCreating: false,
+            punchTime: null
         }
 
         this.handleTab = this.handleTab.bind(this)
@@ -172,7 +173,9 @@ export default class Employee extends React.Component {
                 date: new Date()
             })
 
-            document.getElementById('punch-message').innerText = `Ponto batido em ${(new Date()).toString()}`
+            this.setState({
+                punchTime: (new Date()).toString()
+            })
 
         } catch (error) {
             console.error(error);
@@ -301,7 +304,8 @@ export default class Employee extends React.Component {
 
                     <TabPanel index={2} value={this.state.value}>
                         <Button onClick={this.punch} variant="contained">Bater ponto</Button>
-                        <p id="punch-message" style={{ color: '#0066aa' }}></p>
+                        <br /><br />
+                        {this.state.punchTime && <Alert severity="success">Ponto batido em {this.state.punchTime}</Alert>}
                     </TabPanel>
                 </Box>
             </Base>
