@@ -26,11 +26,13 @@ export default class Employee extends React.Component {
         this.updateMember = this.updateMember.bind(this);
         this.addExercise = this.addExercise.bind(this);
         this.saveWorkout = this.saveWorkout.bind(this);
+        this.punch = this.punch.bind(this);
     }
 
     handleTab(event, newValue) {
         this.setState({
-            value: newValue
+            value: newValue,
+            member: null
         })
     }
 
@@ -160,6 +162,22 @@ export default class Employee extends React.Component {
 
     }
 
+    async punch() {
+        try {
+            let employee_id = this.state.employee.type === 1 ? this.state.employee.id : this.state.employee.employee_id;
+
+            await axios.post(`http://localhost:3333/punchClock`, {
+                employee_id,
+                date: new Date()
+            })
+
+            document.getElementById('punch-message').innerText = `Ponto batido em ${(new Date()).toString()}`
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
     render() {
         return (
@@ -274,6 +292,11 @@ export default class Employee extends React.Component {
                                 }
                             </div>
                         )}
+                    </TabPanel>
+
+                    <TabPanel index={2} value={this.state.value}>
+                        <Button onClick={this.punch} variant="contained">Bater ponto</Button>
+                        <p id="punch-message" style={{ color: '#0066aa' }}></p>
                     </TabPanel>
                 </Box>
             </Base>
