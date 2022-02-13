@@ -194,7 +194,9 @@ routes.put('/employee', async (req, res) => {
 
 routes.get('/punchClocks', async (req, res) => {
     try {
-        const punchClocks = await models.PunchClock.findAll();
+        const punchClocks = await models.PunchClock.findAll({
+            order: [['date', 'DESC']]
+        });
 
         return res.status(200).json(punchClocks);
     } catch (error) {

@@ -7,6 +7,7 @@ import Base from "../../components/Base";
 import TabPanel from "../../components/TabPanel";
 import EmployeeQuery from "./components/EmployeeQuery";
 import EmployeeForm from "./components/EmployeeForm";
+import Report from "./components/Report";
 
 
 export default class Admin extends React.Component {
@@ -49,12 +50,11 @@ export default class Admin extends React.Component {
                     </TabPanel>
 
                     <TabPanel index={1} value={this.state.value}>
-                        {/* <MemberForm title="Cadastro de Aluno" login={this.state.employee.login}></MemberForm> */}
                         <EmployeeForm login={this.state.admin.login}></EmployeeForm>
                     </TabPanel>
 
                     <TabPanel index={2} value={this.state.value}>
-                        
+                        <Report></Report>
                     </TabPanel>
                 </Box>
             </Base>
