@@ -21,9 +21,9 @@ routes.get('/users', async (req, res) => {
 
 routes.post('/login', async (req, res) => {
     try {
-        const { login, password } = req.body;
+        let { login, password } = req.body;
 
-        if (login === adminCred.user && password === adminCred.password) {
+        if (login === adminCred.username && password === adminCred.password) {
             return res.status(200).send({
                 success: true,
                 msg: 'Successful login',
@@ -49,7 +49,7 @@ routes.post('/login', async (req, res) => {
                 where: { user_id: user.id }
             }))[0]
 
-            userType = {...userType.dataValues}
+            userType = { ...userType.dataValues }
         }
         if (user.type === 2) {
             userType = (await models.Employee.findAll({

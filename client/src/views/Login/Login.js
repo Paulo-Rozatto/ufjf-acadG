@@ -18,17 +18,30 @@ export default class Login extends React.Component {
     }
 
     async handleSubmit() {
-        let login = document.getElementById('logn').value;
-        let password = document.getElementById('password').value;
+        let login = document.getElementById('logn').value.trim();
+        let password = document.getElementById('password').value.trim();
+
+        if(typeof password === 'number')
+
+        console.log(login, password)
 
         try {
             let res = await axios.post('http://localhost:3333/login', { login, password })
 
-            this.setState({
-                path: res.data.user.type === 1 ? 'member' : 'employee',
-                user: res.data.user,
-                navigate: true
-            })
+            if (res.data.isAdmin) {
+                this.setState({
+                    path: 'admin',
+                    login,
+                    navigate: true
+                })
+            }
+            else {
+                this.setState({
+                    path: res.data.user.type === 1 ? 'member' : 'employee',
+                    user: res.data.user,
+                    navigate: true
+                })
+            }
         }
         catch (e) {
             console.log('bad')
@@ -42,12 +55,12 @@ export default class Login extends React.Component {
                 justifyContent="center"
                 alignItems="center"
 
-                style={{height: '100vh', backgroundColor: '#cccccc'}}
+                style={{ height: '100vh', backgroundColor: '#cccccc' }}
             >
-                <Grid xs={8} md={6} item style={{ backgroundColor: '#00aff0a0', padding: '1em'}} >
-                    <div style={{margin: 'auto', width: '80%'}}>
+                <Grid xs={8} md={6} item style={{ backgroundColor: '#00aff0a0', padding: '1em' }} >
+                    <div style={{ margin: 'auto', width: '80%' }}>
                         <h2>Login</h2>
-                        <TextField id="logn" label="Login" variant="filled" required  fullWidth/>
+                        <TextField id="logn" label="Login" variant="filled" required fullWidth />
                         <br /><br />
                         <TextField id="password" label="Senha" variant="filled" required fullWidth type="password" />
                         <br /><br />
