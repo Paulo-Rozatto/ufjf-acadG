@@ -48,6 +48,8 @@ routes.post('/login', async (req, res) => {
             userType = (await models.Member.findAll({
                 where: { user_id: user.id }
             }))[0]
+
+            userType = {...userType.dataValues}
         }
         if (user.type === 2) {
             userType = (await models.Employee.findAll({
@@ -286,7 +288,7 @@ routes.get('/member/:id', async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            member: { ...member.dataValues, ...user.dataValues },
+            member: { ...user.dataValues, ...member.dataValues },
         })
 
     } catch (error) {
