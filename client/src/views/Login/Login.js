@@ -21,9 +21,9 @@ export default class Login extends React.Component {
         let login = document.getElementById('logn').value.trim();
         let password = document.getElementById('password').value.trim();
 
-        if(typeof password === 'number')
+        if (typeof password === 'number')
 
-        console.log(login, password)
+            console.log(login, password)
 
         try {
             let res = await axios.post('http://localhost:3333/login', { login, password })
@@ -31,7 +31,7 @@ export default class Login extends React.Component {
             if (res.data.isAdmin) {
                 this.setState({
                     path: 'admin',
-                    login,
+                    user: { login },
                     navigate: true
                 })
             }

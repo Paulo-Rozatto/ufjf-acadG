@@ -5,6 +5,7 @@ import { Alert, Box, Button, Tab, Tabs } from "@mui/material";
 
 import Base from "../../components/Base";
 import TabPanel from "../../components/TabPanel";
+import EmployeeQuery from "./components/EmployeeQuery";
 
 
 export default class Admin extends React.Component {
@@ -44,6 +45,7 @@ export default class Admin extends React.Component {
                     </Box>
                     <TabPanel index={0} value={this.state.value}>
                         {/* <MemberQuery></MemberQuery> */}
+                        <EmployeeQuery></EmployeeQuery>
                     </TabPanel>
 
                     <TabPanel index={1} value={this.state.value}>
