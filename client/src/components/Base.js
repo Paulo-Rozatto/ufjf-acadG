@@ -10,7 +10,7 @@ export default class Base extends React.Component {
                 width: '100vw',
                 height: '100vh',
                 overflowX: 'hidden',
-                backgroundColor: '#eFFFee',
+                backgroundColor: '#dddddd',
             }}>
                 <Box component="div" sx={{ marginBottom: '0em' }}>
                     <AppBar position="static">
@@ -37,7 +37,7 @@ export default class Base extends React.Component {
                         justifyContent="center"
                         alignItems="flex-start"
                     >
-                        <Grid item xs={12} md={8} style={{ backgroundColor: '#dde0dd70', padding: '1em' }}>
+                        <Grid item xs={12} md={8} style={{ backgroundColor: '#ffffff90', padding: '1em' }}>
                             {this.props.children}
                         </Grid>
                     </Grid>

@@ -43,17 +43,30 @@ routes.post('/login', async (req, res) => {
             })
         }
 
-        let type = {};
+        let userType = {};
         if (user.type === 1) {
-            type = (await models.Member.findAll({
+            userType = (await models.Member.findAll({
                 where: { user_id: user.id }
             }))[0]
+        }
+        if (user.type === 2) {
+            userType = (await models.Employee.findAll({
+                where: { user_id: user.id }
+            }))[0]
+
+            if (userType.type === 2) {
+                let instructor = (await models.Instructor.findAll({
+                    where: { employee_id: userType.id }
+                }))[0]
+
+                userType = { ...userType.dataValues, ...instructor.dataValues }
+            }
         }
 
         return res.status(200).json({
             success: true,
             msg: 'Successful login',
-            user: { ...user.dataValues, ...type.dataValues },
+            user: { ...user.dataValues, ...userType },
             isAdmin: false
         })
 
@@ -273,7 +286,7 @@ routes.get('/member/:id', async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            employee: { ...member.dataValues, ...user.dataValues },
+            member: { ...member.dataValues, ...user.dataValues },
         })
 
     } catch (error) {
@@ -346,7 +359,12 @@ routes.get('/workout/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        let workout = await models.Workout.findOne({ where: { member_id: id } })
+        let workout = await models.Workout.findOne({
+            where: { member_id: id },
+            order: [
+                // Will escape title and validate DESC against a list of valid direction parameters
+                ['start_date', 'DESC']]
+        })
 
         if (!workout) {
             return res.status(404).json({
